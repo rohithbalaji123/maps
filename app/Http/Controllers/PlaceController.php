@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Place;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Place as Location;
 
 class PlaceController extends Controller
 {
@@ -18,16 +21,6 @@ class PlaceController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -35,7 +28,20 @@ class PlaceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user_id = Auth::id();
+        $latitude = (string)$request->latitude;
+        $longitude = (string)$request->longitude;
+        $place  = $request->place;
+
+        if(!$latitude || !$longitude || !$place) {
+            return response()->json('Missing Parameters', 400);
+        }
+
+        if(!Location::store($user_id, $latitude, $longitude, $place)) {
+            return response()->json('Error while updating', 500);
+        }
+
+        return response()->json('Place store successful', 200);
     }
 
     /**
@@ -45,29 +51,6 @@ class PlaceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show(Place $place)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Place $place)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Place $place)
     {
         //
     }

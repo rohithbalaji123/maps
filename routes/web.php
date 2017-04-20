@@ -19,3 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index');
 
+Route::post('place/addplace', 'PlaceController@store')->name('addplace');
