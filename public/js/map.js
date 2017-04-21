@@ -17,14 +17,36 @@ function myMap() {
 	var geocoder = new google.maps.Geocoder;
 	var infowindow = new google.maps.InfoWindow;
 	var place;
-	
+
+	retreivePlaces();
+
+	function retreivePlaces() {
+		$.ajax({
+			type: 'GET',
+			url: "place/getplaces",
+			headers: {
+				'X-CSRF_Token': csrf_token,
+			},
+
+			success: function(data) {
+				for(var i in data) {
+					geocodeLatLng(geocoder, map, data[i].latitude, data[i].longitude, false);
+				}
+			},
+
+			error: function(data) {
+				console.log(data);
+            }
+		})
+	}
+
     map.addListener('click', function(event) {
         map.panTo({
             lat: event.latLng.lat(),
             lng: event.latLng.lng(),
         });
 
-        geocodeLatLng(geocoder, map);
+        geocodeLatLng(geocoder, map, event.latLng.lat(), event.latLng.lng(), true);
 
     });
 
@@ -51,11 +73,10 @@ function myMap() {
         })
     };
 
-	function geocodeLatLng(geocoder, map) {
-		var center = map.getCenter();
+	function geocodeLatLng(geocoder, map, latitude, longitude, flag) {
 		var latlng = {
-			lat: center.lat(),
-			lng: center.lng(),
+			lat: latitude,
+			lng: longitude,
 		};
 
 		geocoder.geocode({location: latlng}, function(results, status) {
@@ -73,7 +94,8 @@ function myMap() {
 					infowindow.open(map, marker);
 
 					$('#places').append(place+'<br>');
-					addPlace(place, latlng);
+					if(flag)
+						addPlace(place, latlng);
 				}
 			}
 		});

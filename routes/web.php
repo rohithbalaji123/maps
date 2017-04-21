@@ -18,5 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('place/getplaces', 'PlaceController@getPlaces')->name('getplaces');
 
 Route::post('place/addplace', 'PlaceController@store')->name('addplace');

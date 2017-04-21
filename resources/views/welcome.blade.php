@@ -62,6 +62,15 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+
+            .done-by {
+                position: absolute;
+                right: 5%;
+                bottom: 5%;
+                color: #000000;
+                font-size: 50px;
+
+            }
         </style>
     </head>
     <body>
@@ -79,16 +88,15 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    Networks Assignment
                 </div>
+            </div>
 
-                <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+            <div class="done-by">
+                By: <br>
+                &emsp;106115008 - Akash<br>
+                &emsp;106115024 - Dhananjay<br>
+                &emsp;106115070 - Rohith Balaji<br>
             </div>
         </div>
     </body>

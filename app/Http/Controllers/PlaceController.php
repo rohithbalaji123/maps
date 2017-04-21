@@ -44,15 +44,20 @@ class PlaceController extends Controller
         return response()->json('Place store successful', 200);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Place  $place
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Place $place)
+    public function getPlaces(Request $request)
     {
-        //
+        $user_id = Auth::id();
+
+        if(!$places = Location::getPlacesByUserId($user_id)) {
+            return response()->json('Error while retreiving places', 500);
+        }
+
+        foreach($places as $place) {
+            $place['latitude'] = (float)$place['latitude'];
+            $place['longitude'] = (float)$place['longitude'];
+        }
+
+        return response()->json($places, 200);
     }
 
     /**

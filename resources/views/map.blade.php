@@ -12,7 +12,7 @@
 		<div class="container-fluid" style="padding: 1%">
 			<div class="row">
 				<div class="col-sm-3">
-					<div id="places"></div>		
+					<div id="places" style="height: 80vh"></div>
 				</div>
 				<div class="col-sm-9">
 					<div id="googleMap" style="height: 80vh"></div>			
